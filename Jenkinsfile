@@ -25,7 +25,7 @@ pipeline {
    
    stage('INTEGRATION TEST'){
       steps {
-         sh 'npm verify'
+         sh 'npm verify test'
       }
     }
 
