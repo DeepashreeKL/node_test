@@ -4,23 +4,41 @@ pipeline {
     
   stages {
          
-    stage('Install dependencies') {
+    stage('INSTALL DEPENDENCIES') {
       steps {
         sh 'npm install'
         sh 'npm audit fix'
       }
     }
     
-    stage('Build') {
+    stage('BUILD') {
       steps {
          sh 'npm build'
       }
     } 
     
-    stage('Test') {
+    stage('UNIT TESTING') {
       steps {
          sh 'npm test'
       }
-    }      
+    } 
+   
+   stage('INTEGRATION TEST'){
+      steps {
+         sh 'npm verify'
+      }
+    }
+
+   stage ('CODE ANALYSIS WITH CHECKSTYLE'){
+      steps {
+         sh 'npm checkstyle:checkstyle'
+     }
+         post {
+            success {
+                echo 'Generated Analysis Result'
+            }
+         }
+     }
+ 
   }
 }
